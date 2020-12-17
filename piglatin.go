@@ -40,15 +40,15 @@ func translate(inputWords string) string {
 
 				//maybe
 				switch firstLetter {
-				case "a", "e", "i", "o", "u": //case when first letter is vowel
+				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
 					piglatinWords = append(piglatinWords, changeSignFirst+word+"ay"+changeSignLast)
 				default: //case when first letter is consonant
 					switch secondLetter {
-					case "a", "e", "i", "o", "u":
+					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 						piglatinWords = append(piglatinWords, changeSignFirst+word[1:]+word[0:1]+"ay"+changeSignLast)
 					default: //case when second letter is consonant
 						switch thirdLetter {
-						case "a", "e", "i", "o", "u":
+						case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 							piglatinWords = append(piglatinWords, changeSignFirst+word[2:]+word[0:2]+"ay"+changeSignLast)
 						default: //case when third letter is consonant
 							piglatinWords = append(piglatinWords, changeSignFirst+word[3:]+word[0:3]+"ay"+changeSignLast)
@@ -59,15 +59,15 @@ func translate(inputWords string) string {
 				}
 			default:
 				switch firstLetter {
-				case "a", "e", "i", "o", "u": //case when first letter is vowel
+				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
 					piglatinWords = append(piglatinWords, changeSignFirst+word+"ay")
 				default: //case when first letter is consonant
 					switch secondLetter {
-					case "a", "e", "i", "o", "u":
+					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 						piglatinWords = append(piglatinWords, changeSignFirst+word[1:]+word[0:1]+"ay")
 					default: //case when second letter is consonant
 						switch thirdLetter {
-						case "a", "e", "i", "o", "u":
+						case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 							piglatinWords = append(piglatinWords, changeSignFirst+word[2:]+word[0:2]+"ay")
 						default: //case when third letter is consonant
 							piglatinWords = append(piglatinWords, changeSignFirst+word[3:]+word[0:3]+"ay")
@@ -81,15 +81,15 @@ func translate(inputWords string) string {
 			changeSignLast := word[len(word)-1:]
 			word = word[:len(word)-1]
 			switch firstLetter {
-			case "a", "e", "i", "o", "u": //case when first letter is vowel
+			case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
 				piglatinWords = append(piglatinWords, word+"ay"+changeSignLast)
 			default: //case when first letter is consonant
 				switch secondLetter {
-				case "a", "e", "i", "o", "u":
+				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 					piglatinWords = append(piglatinWords, word[1:]+word[0:1]+"ay"+changeSignLast)
 				default: //case when second letter is consonant
 					switch thirdLetter {
-					case "a", "e", "i", "o", "u":
+					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 						piglatinWords = append(piglatinWords, word[2:]+word[0:2]+"ay"+changeSignLast)
 					default: //case when third letter is consonant
 						piglatinWords = append(piglatinWords, word[3:]+word[0:3]+"ay"+changeSignLast)
@@ -100,15 +100,15 @@ func translate(inputWords string) string {
 			}
 		default:
 			switch firstLetter {
-			case "a", "e", "i", "o", "u": //case when first letter is vowel
+			case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
 				piglatinWords = append(piglatinWords, word+"ay")
 			default: //case when first letter is consonant
 				switch secondLetter {
-				case "a", "e", "i", "o", "u":
+				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 					piglatinWords = append(piglatinWords, word[1:]+word[0:1]+"ay")
 				default: //case when second letter is consonant
 					switch thirdLetter {
-					case "a", "e", "i", "o", "u":
+					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
 						piglatinWords = append(piglatinWords, word[2:]+word[0:2]+"ay")
 					default: //case when third letter is consonant
 						piglatinWords = append(piglatinWords, word[3:]+word[0:3]+"ay")
@@ -125,5 +125,5 @@ func translate(inputWords string) string {
 }
 
 func main() {
-	fmt.Println(translate("Yalantis , is a great school, so are the people ,who work there"))
+	fmt.Println(translate("Yalantis , is a great school, so Are the peoPle ,who work there"))
 }
