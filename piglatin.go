@@ -3,127 +3,31 @@ package main
 import (
 	"fmt"
 	"strings"
-	"unicode"
 )
 
-func translate(inputWords string) string {
-	var piglatinWords []string
+const (
+	str string = "Yalantis is a great school, so are the people who work there"
+)
 
-	englishWords := strings.Split(inputWords, " ")
+func interpret(input string) string {
 
-	fmt.Printf("Value of englishWords:   %v\n", englishWords)
-	fmt.Println()
+	var pigLatWords []string
+	enWords := strings.Split(input, " ")
 
-	for _, word := range englishWords {
-		if len(word) < 2 && unicode.IsPunct([]rune(word[0:1])[0]) {
-			piglatinWords = append(piglatinWords, word)
-			continue
-		} else if len(word) < 3 {
-			word = word + string(rune(0)) + string(rune(0)) + string(rune(0))
-		}
+	for _, word := range enWords {
 		firstLetter := word[0:1]
-		secondLetter := word[1:2]
-		thirdLetter := word[2:3]
-		lastLetter := word[len(word)-1:]
-		r := []rune(firstLetter)
-		rLast := []rune(lastLetter)
-
-		switch {
-		case unicode.IsPunct(r[0]): //case when first sign IS NOT a letter
-			changeSignFirst := word[0:1]
-			word = word[1:]
-			switch {
-			case unicode.IsPunct(rLast[0]): //case when first sign IS NOT a letter ++ case when AND LAST sign IS NOT a letter TOO
-				changeSignLast := word[len(word)-1:]
-				word = word[:len(word)-1]
-				//can be another first letter here
-
-				//maybe
-				switch firstLetter {
-				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
-					piglatinWords = append(piglatinWords, changeSignFirst+word+"ay"+changeSignLast)
-				default: //case when first letter is consonant
-					switch secondLetter {
-					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-						piglatinWords = append(piglatinWords, changeSignFirst+word[1:]+word[0:1]+"ay"+changeSignLast)
-					default: //case when second letter is consonant
-						switch thirdLetter {
-						case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-							piglatinWords = append(piglatinWords, changeSignFirst+word[2:]+word[0:2]+"ay"+changeSignLast)
-						default: //case when third letter is consonant
-							piglatinWords = append(piglatinWords, changeSignFirst+word[3:]+word[0:3]+"ay"+changeSignLast)
-						}
-
-					}
-
-				}
-			default:
-				switch firstLetter {
-				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
-					piglatinWords = append(piglatinWords, changeSignFirst+word+"ay")
-				default: //case when first letter is consonant
-					switch secondLetter {
-					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-						piglatinWords = append(piglatinWords, changeSignFirst+word[1:]+word[0:1]+"ay")
-					default: //case when second letter is consonant
-						switch thirdLetter {
-						case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-							piglatinWords = append(piglatinWords, changeSignFirst+word[2:]+word[0:2]+"ay")
-						default: //case when third letter is consonant
-							piglatinWords = append(piglatinWords, changeSignFirst+word[3:]+word[0:3]+"ay")
-						}
-
-					}
-
-				}
-			}
-		case unicode.IsPunct(rLast[0]): //case when LAST sign IS NOT a letter
-			changeSignLast := word[len(word)-1:]
-			word = word[:len(word)-1]
-			switch firstLetter {
-			case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
-				piglatinWords = append(piglatinWords, word+"ay"+changeSignLast)
-			default: //case when first letter is consonant
-				switch secondLetter {
-				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-					piglatinWords = append(piglatinWords, word[1:]+word[0:1]+"ay"+changeSignLast)
-				default: //case when second letter is consonant
-					switch thirdLetter {
-					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-						piglatinWords = append(piglatinWords, word[2:]+word[0:2]+"ay"+changeSignLast)
-					default: //case when third letter is consonant
-						piglatinWords = append(piglatinWords, word[3:]+word[0:3]+"ay"+changeSignLast)
-					}
-
-				}
-
-			}
-		default:
-			switch firstLetter {
-			case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U": //case when first letter is vowel
-				piglatinWords = append(piglatinWords, word+"ay")
-			default: //case when first letter is consonant
-				switch secondLetter {
-				case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-					piglatinWords = append(piglatinWords, word[1:]+word[0:1]+"ay")
-				default: //case when second letter is consonant
-					switch thirdLetter {
-					case "a", "A", "e", "E", "i", "I", "o", "O", "u", "U":
-						piglatinWords = append(piglatinWords, word[2:]+word[0:2]+"ay")
-					default: //case when third letter is consonant
-						piglatinWords = append(piglatinWords, word[3:]+word[0:3]+"ay")
-					}
-
-				}
-
-			}
+		if strings.Contains("aeiou", firstLetter) {
+			pigLatWords = append(pigLatWords, word+"ay")
+		} else if strings.Contains("AEIOU", firstLetter) {
+			pigLatWords = append(pigLatWords, word+"ay")
+		} else {
+			pigLatWords = append(pigLatWords, word[1:]+firstLetter+"ay")
 		}
-
 	}
-
-	return strings.Join(piglatinWords, " ")
+	return strings.Join(pigLatWords, " ")
 }
 
 func main() {
-	fmt.Println(translate("Yalantis , is a great school, so Are the peoPle ,who work there"))
+
+	fmt.Println(interpret(str))
 }
