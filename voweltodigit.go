@@ -5,38 +5,48 @@ import (
 )
 
 const (
-	inputLiteral       string = "Yalantis is a great school, so are the people who work there"
-	inputLiteralDigits string = "Y1l1nt3s 3s 1 gr21t sch44l, s4 1r2 th2 p24pl2 wh4 w4rk th2r2"
+	inputEncode string = "Yalantis is a great school, so are the people who work there"
+	inputDecode string = "Y1l1nt3s 3s 1 gr21t sch44l, s4 1r2 th2 p24pl2 wh4 w4rk th2r2"
+)
+
+var (
+	match = map[string]string{
+		"a": "1",
+		"e": "2",
+		"i": "3",
+		"o": "4",
+		"u": "5",
+		"A": "1",
+		"E": "2",
+		"I": "3",
+		"O": "4",
+		"U": "5",
+	}
+
+	matchBack = map[string]string{
+		"1": "a",
+		"2": "e",
+		"3": "i",
+		"4": "o",
+		"5": "u",
+	}
 )
 
 func encode(inputString string) string {
 	var outputString string
 
+outer:
+
 	for _, symbol := range inputString {
 		r := rune(symbol)
-
-		if string(r) == "A" || string(r) == "a" {
-			outputString = outputString + "1"
-			continue
-		} else if string(r) == "E" || string(r) == "e" {
-			outputString = outputString + "2"
-			continue
-
-		} else if string(r) == "I" || string(r) == "i" {
-			outputString = outputString + "3"
-			continue
-
-		} else if string(r) == "O" || string(r) == "o" {
-			outputString = outputString + "4"
-			continue
-
-		} else if string(r) == "U" || string(r) == "u" {
-			outputString = outputString + "5"
-			continue
-
+		for key, value := range match {
+			if string(r) == key {
+				outputString = outputString + value
+				continue outer
+			}
 		}
-		outputString = outputString + string(r)
 
+		outputString = outputString + string(r)
 	}
 	return outputString
 }
@@ -44,39 +54,26 @@ func encode(inputString string) string {
 func decode(inputStringDecode string) string {
 	var outputStringDecode string
 
+outer:
+
 	for _, symbol := range inputStringDecode {
 		r := rune(symbol)
-
-		if string(r) == "1" {
-			outputStringDecode = outputStringDecode + "a"
-			continue
-		} else if string(r) == "2" {
-			outputStringDecode = outputStringDecode + "e"
-			continue
-
-		} else if string(r) == "3" {
-			outputStringDecode = outputStringDecode + "i"
-			continue
-
-		} else if string(r) == "4" {
-			outputStringDecode = outputStringDecode + "o"
-			continue
-
-		} else if string(r) == "5" {
-			outputStringDecode = outputStringDecode + "u"
-			continue
-
+		for key, value := range matchBack {
+			if string(r) == key {
+				outputStringDecode = outputStringDecode + value
+				continue outer
+			}
 		}
-		outputStringDecode = outputStringDecode + string(r)
 
+		outputStringDecode = outputStringDecode + string(r)
 	}
 	return outputStringDecode
 }
 
 func main() {
 	fmt.Println("Encoding: ")
-	fmt.Println(inputLiteral)
-	fmt.Println(encode(inputLiteral))
+	fmt.Println(inputEncode)
+	fmt.Println(encode(inputEncode))
 	fmt.Println("Decoding: ")
-	fmt.Println(decode(inputLiteralDigits))
+	fmt.Println(decode(inputDecode))
 }
